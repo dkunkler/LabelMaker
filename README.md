@@ -5,7 +5,7 @@ If label already exists, it let's you know, but it is possible to end up with du
 
 Props to @jssjr for the source. 
 
-Requires a Ruby environment. 
+Requires a Ruby environment and Octokit
 
 Uses GH_USER and GH_TOKEN for authorized repo access. Works in bash or zsh
 
@@ -20,6 +20,9 @@ From your shell, check if you already have ruby installed:
 If you don't have ruby, install:
 
   `brew install ruby`
+
+  `sudo gem install octokit`.  
+  it will ask for your computer password (not github password)
 
 Now that you have ruby, you’ll need to set up certificates so you have permission to add labels to your repos.
 
