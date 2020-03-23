@@ -13,11 +13,12 @@ LABELS = {
   "Blocked"     => "f46164",
   "Chaos"       => "95def4",
   "Compute Foundation" => "e7c0f9",
-  "Data Infrastructure" => "19c12f",
+  "Data Infrastructure" => "e99695",
   "Data Pilelines" => "b2ffc5",
   "Database Infrastructure" => "72f957",
   "Git Systems Protocols" => "fcf56f",
   "Git Systems Storage" => "cccc00",
+  "Git Core" => "#ee8800",
   "Observability" => "cce0ff",
   "Physical Infrastructure" => "713dbf",
   "SRE-Americas" => "80b3ff",
@@ -35,7 +36,7 @@ client ||= Octokit::Client.new(
 
 repo = ARGV[0]
 unless repo
-  raise StandardError.new "Please provide a repo name!"
+  raise StandardError.new "Please provide a repo name! github/<repo name> or <user name/<repo name>"
 end
 
 #string compare <==> is case sensitive, but you cannot add labels that differ
@@ -48,6 +49,6 @@ LABELS.each do |name, color|
     puts "Adding #{name} (\##{color})"
     client.add_label(repo, name, color)
   else
-    puts "Adding #{name} already exists"
+    puts "Skipping #{name} already exists"
   end
 end
