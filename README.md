@@ -31,9 +31,11 @@ Got to https://github.com/settings/security
     -> Personal access tokens.  
     -> Generate new token.  
     -> Add a note so you know how you plan to use this token, e.g. Label Maker.  
-        -> Under Select Scopes, check `repo` box.  
+        -> *Under Select Scopes, check `repo` box, in order to edit private repos.*  
         -> Generate token.  
 COPY THIS TOKEN INFORMATION, so you can access it in the future.
+
+*Note, you will only be able to edit labels in repos for which you have permissions as a contributor.*
 
 To use the newly created token:
 
