@@ -22,6 +22,8 @@ From your shell, check if you already have ruby installed:
 If you don't have ruby, install:
 
   `brew install ruby`
+  or
+  `sudo apt install ruby`
 
 
 If you don't have octokit, install:   
