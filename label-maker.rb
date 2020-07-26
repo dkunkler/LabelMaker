@@ -21,13 +21,39 @@ end
 #adding "Blocked" label to a repo that already has "blocked" label.
 
 labels = client.labels(repo)
-p stuff
+
 LABELS.each do |name, details|
   if labels.select {|l| l.name.downcase==name.downcase}.empty?
     #puts "Adding #{name} (\##{color})"
-    puts "Adding #{name} with color \##{details["color"]} and description #{details["description"]}"
+    puts "Adding \e[1m#{name}\e[22m to \e[1m#{repo}\e[22m" 
+    puts "  \e[1mColor\e[22m: \##{details["color"]}"
+    puts "  \e[1mDescription\e[22m #{details["description"]}"
     client.add_label(repo, name, details["color"], options = {"description" => details["description"]} )
   else
-    puts "Skipping #{name} already exists"
+    label = client.label(repo,name)
+    puts "\e[1m#{name}\e[22m already exists"
+    puts " \e[31m---current values---\e[0m "
+    puts "  \e[31mColor\e[0m: \##{label.color}"
+    puts "  \e[31mDescription\e[0m: #{label.description}"
+    puts " \e[32m---new values---\e[0m "
+    puts "  \e[32mColor\e[0m: \##{details["color"]}"
+    puts "  \e[32mDescription\e[0m #{details["description"]}"
+    foundAnswer = false
+    while not foundAnswer do
+      puts "Would you like to replace? y/n"
+      answer = $stdin.gets
+      answer = answer.chomp
+      if answer == 'n'
+        puts "Skipping \e[1m#{name}\e[22m"
+        break
+      elsif answer == "y"
+        puts "Replacing \e[1m#{name}\e[22m in \e[1m#{repo}\e[22m"
+        client.delete_label!(repo,name)
+        client.add_label(repo, name, details["color"], options = {"description" => details["description"]} )
+        break
+      end
+    end
+    puts ""
+    
   end
 end
