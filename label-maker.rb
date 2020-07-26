@@ -50,6 +50,7 @@ LABELS.each do |name, details|
         puts "Replacing \e[1m#{name}\e[22m in \e[1m#{repo}\e[22m"
         client.delete_label!(repo,name)
         client.add_label(repo, name, details["color"], options = {"description" => details["description"]} )
+        puts ""
         break
       end
     end
