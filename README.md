@@ -7,7 +7,7 @@ If label already exists, it asks if you want to replace the old label or not.
 
 Props to @jssjr for the source. 
 
-Requires a Ruby environment and Octokit
+Requires a Ruby environment, Octokit, and dotenv
 
 Uses GH_USER and GH_TOKEN for authorized repo access. Works in bash or zsh
 
@@ -32,9 +32,12 @@ If you don't have octokit, install:
   `sudo gem install octokit`    
 (it will ask for your computer password, not GitHub password)
 
+If you don't already have dotenv, install:  
+  `sudo gem install dotenv`
+
 Now that you have ruby, you’ll need to set up certificates so the script will have permission to add labels to your repos.
 
-Got to https://github.com/settings/security
+Go to https://github.com/settings/security
   * Developer Settings.  
   * Personal access tokens.  
   * Generate new token.  
