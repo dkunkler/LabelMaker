@@ -1,7 +1,9 @@
 # LabelMaker
 Creates labels in a repo. Useful for shared labels across repos.
 
-If label already exists, it let's you know, but it is possible to end up with duplicate colors.
+Takes labels from a YAML file and adds them to a designated repo.
+
+If label already exists, it asks if you want to replace the old label or not.
 
 Props to @jssjr for the source. 
 
