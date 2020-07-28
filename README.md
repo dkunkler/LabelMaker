@@ -65,8 +65,9 @@ in either file, add the following lines:
 Clone or download the label-maker.rb script.  
 Edit `label-maker.rb`
 
-configure the LABELS names and colors you want to inject into a repo   
-Save it
+[TODO]  
+* Update syntax to note write source repo labels into a yaml file
+* Update syntax for reading yaml file into target repo labels 
 
 From your shell, navigate to the label-maker.rb directory
 
