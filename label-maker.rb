@@ -33,16 +33,26 @@ FILENAME = fn
 #adding "Blocked" label to a repo that already has "blocked" label.
 
 def addLabelsToRepo(labels, repo, client)
+  begin
   repoLabels = client.labels(repo)
+  repoColors = []
+  repoLabels.each do |name|
+    repoColors << name.color
+  end
   labels.each do |name, details|
     if repoLabels.select {|l| l.name.downcase==name.downcase}.empty?
       #puts "Adding #{name} (\##{color})"
       puts "Adding \e[1m#{name}\e[22m to \e[1m#{repo}\e[22m" 
       puts "  \e[1mColor\e[22m: \##{details["color"]}"
       puts "  \e[1mDescription\e[22m #{details["description"]}"
+      if repoColors.include? details["color"]
+        puts "\e[35mWARNING: Color #{details["color"]} already exists in repo\e[0m"
+      end
+      repoColors << details["color"].to_i
       client.add_label(repo, name, details["color"], options = {"description" => details["description"]} )
     else
       label = client.label(repo,name)
+      puts ""
       puts "\e[1m#{name}\e[22m already exists"
       puts " \e[31m---current values---\e[0m "
       puts "  \e[31mColor\e[0m: \##{label.color}"
@@ -61,13 +71,24 @@ def addLabelsToRepo(labels, repo, client)
         elsif answer == "y"
           puts "Replacing \e[1m#{name}\e[22m in \e[1m#{repo}\e[22m"
           client.delete_label!(repo,name)
+          repoColors.pop(details["color"].to_i)
+          if repoColors.include? details["color"]
+            puts "\e[35mWARNING: Color #{details["color"]} already exists in repo \e[0m"
+          end
+          repoColors << details["color"].to_i
           client.add_label(repo, name, details["color"], options = {"description" => details["description"]} )
-          puts ""
+          
           break
         end
       end
       puts ""
     end
+  end
+  rescue StandardError => bang
+    puts ""
+    puts "\e[31m#{bang}\e[0m"
+    puts ""
+    puts "\e[31mError:\e[0m Please check your permissions"
   end
 end
 
