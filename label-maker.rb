@@ -4,7 +4,7 @@ require "octokit"
 require "dotenv"
 require "yaml"
 Dotenv.load
-LABELS = YAML.load(File.read("labels.yml"))
+
 
 client ||= Octokit::Client.new(
   :login        => ENV.fetch("GH_USER", ENV["USER"]),
@@ -27,6 +27,7 @@ unless fn
   puts "No file name specified. File name has been defaulted to \"labels.yml\""
 end
 FILENAME = fn
+LABELS = YAML.load(File.read(FILENAME))
 
 #string compare <==> is case sensitive, but you cannot add labels that differ
 #only by case. Must use case insensitive compare, or will error when
